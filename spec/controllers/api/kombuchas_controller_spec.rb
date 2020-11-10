@@ -23,7 +23,7 @@ describe Api::KombuchasController, type: :request do
       create(:kombucha_with_medium_fizziness)
 
       get '/api/kombuchas', params: { fizziness_level: 'high' }, headers: headers
-      expect(JSON.parse(response.body).count).to eql(3)
+      expect(response_body.count).to eql(3)
     end
 
     it 'returns kombuchas without any caffeine when the param is true' do
@@ -35,9 +35,8 @@ describe Api::KombuchasController, type: :request do
       decaf_kombucha.ingredients << create(:caffeine_free_ingredient)
 
       get '/api/kombuchas', params: { caffeine_free: 'true' }, headers: headers
-      resp = JSON.parse(response.body)
-      expect(resp.count).to eql(1)
-      expect(resp.first['id']).to eql(decaf_kombucha.id)
+      expect(response_body.count).to eql(1)
+      expect(response_body.first['id']).to eql(decaf_kombucha.id)
     end
 
     it 'returns all kombuchas when the caffine_free param is false' do
@@ -49,7 +48,7 @@ describe Api::KombuchasController, type: :request do
       decaf_kombucha.ingredients << create(:caffeine_free_ingredient)
 
       get '/api/kombuchas', params: { caffeine_free: 'false' }, headers: headers
-      expect(JSON.parse(response.body).count).to eql(2)
+      expect(response_body.count).to eql(2)
     end
 
     it 'returns all kombuchas when the caffeine_free param is missing' do
@@ -60,8 +59,8 @@ describe Api::KombuchasController, type: :request do
       decaf_kombucha = create(:kombucha)
       decaf_kombucha.ingredients << create(:caffeine_free_ingredient)
 
-      get '/api/kombuchas', params: { }, headers: headers
-      expect(JSON.parse(response.body).count).to eql(2)
+      get '/api/kombuchas', params: {}, headers: headers
+      expect(response_body.count).to eql(2)
     end
 
     it 'returns vegan kombuchas when the param is true' do
@@ -73,9 +72,8 @@ describe Api::KombuchasController, type: :request do
       vegan_kombucha.ingredients << create(:vegan_ingredient)
 
       get '/api/kombuchas', params: { vegan: 'true' }, headers: headers
-      resp = JSON.parse(response.body)
-      expect(resp.count).to eql(1)
-      expect(resp.first['id']).to eql(vegan_kombucha.id)
+      expect(response_body.count).to eql(1)
+      expect(response_body.first['id']).to eql(vegan_kombucha.id)
     end
 
     it 'returns all kombuchas when the vegan param is false' do
@@ -87,7 +85,7 @@ describe Api::KombuchasController, type: :request do
       vegan_kombucha.ingredients << create(:vegan_ingredient)
 
       get '/api/kombuchas', params: { vegan: 'false' }, headers: headers
-      expect(JSON.parse(response.body).count).to eql(2)
+      expect(response_body.count).to eql(2)
     end
 
     it 'returns all kombuchas when the vegan param is missing' do
@@ -99,7 +97,7 @@ describe Api::KombuchasController, type: :request do
       vegan_kombucha.ingredients << create(:vegan_ingredient)
 
       get '/api/kombuchas', params: {}, headers: headers
-      expect(JSON.parse(response.body).count).to eql(2)
+      expect(response_body.count).to eql(2)
     end
 
     it 'returns a kombuchas matching a combination of high fizz, vegan, and caffeine free' do
@@ -121,9 +119,8 @@ describe Api::KombuchasController, type: :request do
         vegan: 'true'
       }, headers: headers
 
-      resp = JSON.parse(response.body)
-      expect(resp.count).to eql(1)
-      expect(resp.first['id']).to eql(matching_kombucha.id)
+      expect(response_body.count).to eql(1)
+      expect(response_body.first['id']).to eql(matching_kombucha.id)
     end
   end
 
