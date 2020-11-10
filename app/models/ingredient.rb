@@ -8,4 +8,7 @@ class Ingredient < ApplicationRecord
   validates :base, inclusion: { in: [ true, false ] }
   validates :caffeine_free, inclusion: { in: [ true, false ] }
   validates :vegan, inclusion: { in: [ true, false ] }
+
+  scope :caffeinated, -> { where(caffeine_free: false) }
+  scope :not_vegan, -> { where(vegan: false) }
 end

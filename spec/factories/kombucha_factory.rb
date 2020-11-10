@@ -16,5 +16,9 @@ FactoryBot.define do
     trait :with_high_fizziness do
       fizziness_level { "high" }
     end
+
+    factory :kombucha_with_high_fizziness, traits: %i[with_high_fizziness]
+    factory :kombucha_with_low_fizziness, traits: %i[with_low_fizziness]
+    factory :kombucha_with_medium_fizziness, traits: %i[with_medium_fizziness]
   end
 end

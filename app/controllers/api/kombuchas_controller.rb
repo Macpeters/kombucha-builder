@@ -5,7 +5,10 @@ class Api::KombuchasController < ApiController
   before_action :set_kombucha, only: [:show, :update]
 
   def index
-    @kombuchas = Kombucha.all
+    @kombuchas = Kombucha
+      .by_fizziness(params['fizziness_level'])
+      .caffeine_free(params['caffeine_free'])
+      .vegan(params['vegan'])
     render json: @kombuchas.map(&:to_h), status: :ok
   end
 

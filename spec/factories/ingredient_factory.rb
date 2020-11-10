@@ -14,5 +14,8 @@ FactoryBot.define do
     trait :vegan do
       vegan { true }
     end
+
+    factory :caffeine_free_ingredient, traits: %i[caffeine_free]
+    factory :vegan_ingredient, traits: %i[vegan]
   end
 end
